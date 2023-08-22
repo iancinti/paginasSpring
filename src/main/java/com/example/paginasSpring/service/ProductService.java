@@ -2,12 +2,11 @@ package com.example.paginasSpring.service;
 
 import com.example.paginasSpring.model.Product;
 import com.example.paginasSpring.repository.ProductRepository;
+import com.example.paginasSpring.util.PageCustom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -22,9 +21,9 @@ public class ProductService {
         this.repository = repository;
     }
 
-    public List<Product> getAllProduct(int page, int items) {
+    public PageCustom<Product> getAllProduct(int page, int items) {
         logger.info("Calculando productos");
-        List<Product> products = repository.getAllProduct(page, items);
+        PageCustom<Product> products = repository.getAllProducts(page, items);
         logger.info("Se calcularon los productos exitosamente: " + products);
         return products;
     }

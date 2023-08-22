@@ -1,6 +1,7 @@
 package com.example.paginasSpring.repository;
 
 import com.example.paginasSpring.model.Product;
+import com.example.paginasSpring.util.PageCustom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,22 @@ public class ProductRepository {
     }
 
 
-    public List<Product> getAllProduct(int page, int items) {
+    public PageCustom<Product> getAllProducts(int page, int items) {
         int total = page * items;
         String query = "SELECT * FROM products LIMIT ? OFFSET ?";
+        String countQuery = "SELECT COUNT(*) FROM products";
         logger.info("Ejecutando query para productos: " + query);
+
         List<Product> productList = template.query(query, this::mapToProduct, items, total);
+
+        Integer count = template.queryForObject(countQuery, Integer.class);
+
+        PageCustom<Product> productPagination = new PageCustom<>();
+        productPagination.setItems(productList);
+        productPagination.setTotal(count);
+
         logger.info("Se obtuvieron de la base los productos: " + productList);
-        return productList;
+        return productPagination;
     }
 
 

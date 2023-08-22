@@ -2,6 +2,7 @@ package com.example.paginasSpring.controller;
 
 import com.example.paginasSpring.model.Product;
 import com.example.paginasSpring.service.ProductService;
+import com.example.paginasSpring.util.PageCustom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,9 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAllProduct(@RequestParam int page, @RequestParam int items) {
+    public PageCustom<Product> getAllProduct(@RequestParam int page, @RequestParam int items) {
         logger.info("Obteniendo productos");
-        List<Product> productPage = service.getAllProduct(page, items);
+        PageCustom<Product> productPage = service.getAllProduct(page, items);
         logger.info("Se obtuvieron los productos de la página: " + productPage);
         return productPage;
     }
