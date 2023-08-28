@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,7 +36,26 @@ public class ProductService {
     }
 
     public void updateProduct(int id, Product product) {
-        logger.info("Actualizando producto ID: " + id + ": " + product);
+        StringBuilder queryBuilder = new StringBuilder("UPDATE products SET ");
+        List<Object> params = new ArrayList<>();
+
+        if (product.getName() != null) {
+            queryBuilder.append("name = ?, ");
+            params.add(product.getName());
+        }
+        if (product.getPrice() != null) {
+            queryBuilder.append("price = ?, ");
+            params.add(product.getPrice());
+        }
+
+        if (params.isEmpty()) {
+            return;
+        }
+
+        queryBuilder.delete(queryBuilder.length() - 2, queryBuilder.length());
+        queryBuilder.append(" WHERE id = ?");
+        params.add(id);
+
         repository.updateProduct(id, product);
         logger.info("Producto actualizado exitosamente: " + product);
     }

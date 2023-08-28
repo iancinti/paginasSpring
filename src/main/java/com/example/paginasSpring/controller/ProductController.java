@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public void updateProduct(@PathVariable int id, @RequestBody Product product) {
+    public void updateProducts(@PathVariable int id, @RequestBody Product product) {
         logger.info("Actualizando producto ID: " + id + ": " + product);
         service.updateProduct(id, product);
         logger.info("Producto actualizado exitosamente ID: " + id + ": " + product);

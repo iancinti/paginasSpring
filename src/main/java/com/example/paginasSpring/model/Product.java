@@ -1,10 +1,12 @@
 package com.example.paginasSpring.model;
+import java.time.LocalDateTime;
 
 public class Product {
 
     private Integer id;
     private String name;
     private Integer price;
+    private LocalDateTime deletedAt;
 
     public Integer getId() {
         return id;
@@ -30,12 +32,21 @@ public class Product {
         this.price = price;
     }
 
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", deletedAt=" + deletedAt +
                 '}';
     }
 }
