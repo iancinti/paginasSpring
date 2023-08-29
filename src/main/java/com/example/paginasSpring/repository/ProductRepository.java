@@ -9,7 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -26,8 +28,8 @@ public class ProductRepository {
 
     public PageCustom<Product> getAllProducts(int page, int items) {
         int total = page * items;
-        String query = "SELECT * FROM products LIMIT ? OFFSET ?";
-        String countQuery = "SELECT COUNT(*) FROM products";
+        String query = "SELECT * FROM products WHERE deleted_at is null LIMIT ? OFFSET ?";
+        String countQuery = "SELECT COUNT(*) FROM products WHERE deleted_at is null";
         logger.info("Ejecutando query para productos: " + query);
 
         List<Product> productList = template.query(query, this::mapToProduct, items, total);
@@ -64,11 +66,6 @@ public class ProductRepository {
             params.add(product.getPrice());
         }
 
-        if (product.getDeletedAt() != null) {
-            query += "deletedAt = ?, ";
-            params.add(product.getDeletedAt());
-        }
-
         if (!params.isEmpty()) {
             query = query.substring(0, query.length() - 2);
             query += " WHERE id = ?";
@@ -85,9 +82,10 @@ public class ProductRepository {
 
 
     public void deleteProduct(int id) {
-        String sql = "DELETE FROM products WHERE id = ?";
+        Timestamp deletionTimestamp = new Timestamp(System.currentTimeMillis());
+        String sql = "UPDATE products SET deleted_at = ? WHERE id = ?";
 
-        template.update(sql, id);
+        template.update(sql, deletionTimestamp, id);
     }
 
     private Product mapToProduct(ResultSet resultSet, int rowNum) throws SQLException {

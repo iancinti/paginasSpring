@@ -6,7 +6,6 @@ public class Product {
     private Integer id;
     private String name;
     private Integer price;
-    private LocalDateTime deletedAt;
 
     public Integer getId() {
         return id;
@@ -32,13 +31,6 @@ public class Product {
         this.price = price;
     }
 
-    public LocalDateTime getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
-    }
 
     @Override
     public String toString() {
@@ -46,7 +38,6 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", deletedAt=" + deletedAt +
                 '}';
     }
 }
