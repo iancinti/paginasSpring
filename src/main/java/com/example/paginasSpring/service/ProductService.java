@@ -48,7 +48,8 @@ public class ProductService {
 
     public List<Product> getAllProductsOrderedByName() {
         logger.info("Obteniendo productos ordenados por nombre");
+        List<Product> productsResp = repository.getAllProductsOrderedByName();
         logger.info("Se obtuvieron los productos ordenados por nombre");
-        return repository.getAllProductsOrderedByName();
+        return productsResp;
     }
 }

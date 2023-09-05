@@ -90,7 +90,7 @@ public class ProductRepository {
     }
 
     public List<Product> getAllProductsOrderedByName() {
-        String query = "SELECT p.*, c.category AS category FROM products p LEFT JOIN categories c ON p.category = c.category WHERE p.deleted_at IS NULL ORDER BY p.name";
+        String query = "SELECT * FROM products p WHERE p.deleted_at IS NULL ORDER BY p.name";
         return template.query(query, this::mapToProduct);
     }
 
