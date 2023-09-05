@@ -28,8 +28,8 @@ public class ProductRepository {
 
     public PageCustom<Product> getAllProducts(int page, int items) {
         int total = page * items;
-        String query = "SELECT * FROM products WHERE deleted_at is null LIMIT ? OFFSET ?";
-        String countQuery = "SELECT COUNT(*) FROM products WHERE deleted_at is null";
+        String query = "SELECT p.*, c.category_id AS category_id FROM products p LEFT JOIN categories c ON p.category_id = c.category_id WHERE p.deleted_at IS NULL LIMIT ? OFFSET ?";
+        String countQuery = "SELECT COUNT(*) FROM products WHERE deleted_at IS NULL";
         logger.info("Ejecutando query para productos: " + query);
 
         List<Product> productList = template.query(query, this::mapToProduct, items, total);
@@ -47,9 +47,10 @@ public class ProductRepository {
 
     public void saveProduct(Product product) {
         template.update(
-                "INSERT INTO products (name, price) VALUES (?, ?)",
+                "INSERT INTO products (name, price, category_id) VALUES (?, ?, ?)",
                 product.getName(),
-                product.getPrice()
+                product.getPrice(),
+                product.getCategoryId()
         );
     }
     public void updateProduct(int id, Product product) {
@@ -91,6 +92,7 @@ public class ProductRepository {
     private Product mapToProduct(ResultSet resultSet, int rowNum) throws SQLException {
         Product product = new Product();
         product.setId(resultSet.getInt("id"));
+        product.setCategoryId(resultSet.getInt("category_id"));
         product.setName(resultSet.getString("name"));
         product.setPrice(resultSet.getInt("price"));
         return product;
