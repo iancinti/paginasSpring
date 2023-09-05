@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -48,6 +47,8 @@ public class ProductService {
     }
 
     public List<Product> getAllProductsOrderedByName() {
+        logger.info("Obteniendo productos ordenados por nombre");
+        logger.info("Se obtuvieron los productos ordenados por nombre");
         return repository.getAllProductsOrderedByName();
     }
 }

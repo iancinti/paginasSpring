@@ -1,5 +1,4 @@
 package com.example.paginasSpring.model;
-import java.time.LocalDateTime;
 
 public class Product {
 

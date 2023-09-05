@@ -2,15 +2,15 @@ package com.example.paginasSpring.model;
 
 public class Category {
 
-    private Integer id;
+    private Integer category;
     private String name;
 
-    public Integer getId() {
-        return id;
+    public Integer getCategory() {
+        return category;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCategory(Integer category) {
+        this.category = category;
     }
 
     public String getName() {
@@ -24,8 +24,9 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "id=" + id +
+                "category=" + category +
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

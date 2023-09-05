@@ -26,7 +26,7 @@ public class CategoryRepository {
 
         List<Category> categories = template.query(query, (resultSet, rowNum) -> {
             Category category = new Category();
-            category.setId(resultSet.getInt("id"));
+            category.setCategory(resultSet.getInt("category"));
             category.setName(resultSet.getString("name"));
             return category;
         });

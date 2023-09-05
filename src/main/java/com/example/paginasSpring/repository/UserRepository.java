@@ -1,6 +1,5 @@
 package com.example.paginasSpring.repository;
 
-import com.example.paginasSpring.model.Product;
 import com.example.paginasSpring.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
