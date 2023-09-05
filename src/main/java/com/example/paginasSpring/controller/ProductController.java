@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +30,14 @@ public class ProductController {
         PageCustom<Product> productPage = service.getAllProduct(page, items);
         logger.info("Se obtuvieron los productos de la página: " + productPage);
         return productPage;
+    }
+
+    @GetMapping("/sorted-by-name")
+    public ResponseEntity<List<Product>> getAllProductsSortedByName() {
+        logger.info("Obteniendo productos ordenados por nombre");
+        List<Product> sortedProducts = service.getAllProductsOrderedByName();
+        logger.info("Se obtuvieron los productos ordenados por nombre");
+        return ResponseEntity.ok(sortedProducts);
     }
 
     @PostMapping

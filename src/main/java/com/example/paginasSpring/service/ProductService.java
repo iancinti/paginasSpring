@@ -46,4 +46,8 @@ public class ProductService {
         repository.deleteProduct(id);
         logger.info("Producto eliminado exitosamente ID: " + id);
     }
+
+    public List<Product> getAllProductsOrderedByName() {
+        return repository.getAllProductsOrderedByName();
+    }
 }

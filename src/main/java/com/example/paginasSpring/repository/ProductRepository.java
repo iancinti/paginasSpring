@@ -89,6 +89,11 @@ public class ProductRepository {
         template.update(sql, deletionTimestamp, id);
     }
 
+    public List<Product> getAllProductsOrderedByName() {
+        String query = "SELECT p.*, c.category AS category FROM products p LEFT JOIN categories c ON p.category = c.category WHERE p.deleted_at IS NULL ORDER BY p.name";
+        return template.query(query, this::mapToProduct);
+    }
+
     private Product mapToProduct(ResultSet resultSet, int rowNum) throws SQLException {
         Product product = new Product();
         product.setId(resultSet.getInt("id"));
