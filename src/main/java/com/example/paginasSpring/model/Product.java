@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 public class Product {
 
     private Integer id;
-    private Integer categoryId;
+    private Integer category;
     private String name;
     private Integer price;
 
@@ -16,12 +16,12 @@ public class Product {
         this.id = id;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Integer getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Integer category) {
+        this.category = category;
     }
 
     public String getName() {
@@ -44,7 +44,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", categoryId=" + categoryId +
+                ", categoryId=" + category +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 '}';
