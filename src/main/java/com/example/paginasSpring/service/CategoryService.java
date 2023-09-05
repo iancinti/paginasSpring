@@ -27,4 +27,10 @@ public class CategoryService {
         return categories;
     }
 
+    public void updateCategory(int category, Category updatedCategory) {
+        logger.info("Actualizando categoría: " + category + ": " + updatedCategory);
+
+        repository.updateCategory(category, updatedCategory);
+        logger.info("Categoría actualizada exitosamente: " + category + ": " + updatedCategory);
+    }
 }

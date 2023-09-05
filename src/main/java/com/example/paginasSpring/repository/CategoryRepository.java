@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -31,7 +32,30 @@ public class CategoryRepository {
             return category;
         });
 
-        logger.info("Se obtuvieron todas las categorías de la base de datos: " + categories);
+        logger.info("Se obtuvieron todas las categorías: " + categories);
         return categories;
     }
+
+    public void updateCategory(int category, Category updatedCategory) {
+        String query = "UPDATE categories SET ";
+        List<Object> params = new ArrayList<>();
+
+        if (updatedCategory.getName() != null) {
+            query += "name = ?, ";
+            params.add(updatedCategory.getName());
+        }
+
+        if (!params.isEmpty()) {
+            query = query.substring(0, query.length() - 2);
+            query += " WHERE category = ?";
+            params.add(category);
+
+            logger.info("Ejecutando actualización de categoría. Query: " + query + ", Parámetros: " + params);
+            template.update(query, params.toArray());
+            logger.info("Actualización de categoría exitosa.");
+        } else {
+            logger.info("No hay parámetros de actualización, no se realizará ninguna acción.");
+        }
+    }
+
 }
