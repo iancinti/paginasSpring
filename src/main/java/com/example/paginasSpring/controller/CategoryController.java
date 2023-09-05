@@ -37,4 +37,10 @@ public class CategoryController {
         logger.info("Categoría actualizada exitosamente con valor " + category + ": " + updatedCategory);
     }
 
+    @DeleteMapping("/{category}")
+    public void deleteCategory(@PathVariable int category) {
+        logger.info("Eliminando la categoría ID:  " + category);
+        categoryService.deleteCategory(category);
+        logger.info("Categoría eliminada exitosamente ID: " + category);
+    }
 }

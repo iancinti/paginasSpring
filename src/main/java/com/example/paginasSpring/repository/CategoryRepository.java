@@ -58,4 +58,10 @@ public class CategoryRepository {
         }
     }
 
+    public void deleteCategory(int category) {
+        String query = "DELETE FROM categories WHERE category = ?";
+        logger.info("Ejecutando eliminación de categoría ID: " + category + ": " + query);
+        template.update(query, category);
+        logger.info("Categoría eliminada exitosamente ID: " + category);
+    }
 }

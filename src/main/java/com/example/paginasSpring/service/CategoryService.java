@@ -33,4 +33,10 @@ public class CategoryService {
         repository.updateCategory(category, updatedCategory);
         logger.info("Categoría actualizada exitosamente: " + category + ": " + updatedCategory);
     }
+
+    public void deleteCategory(int category) {
+        logger.info("Eliminando producto ID: " + category);
+        repository.deleteCategory(category);
+        logger.info("Producto eliminado exitosamente ID: " + category);
+    }
 }
